@@ -9,6 +9,8 @@ scal=MinMaxScaler()
 model=pkl.load(open("final_model.p","rb"))
 
 
+
+
 def preprocess(age,sex,cp,trestbps,restecg,chol,fbs,thalach,exang,oldpeak,slope,ca,thal ):   
     # Pre-processing user input   
     if sex=="male":
@@ -68,6 +70,15 @@ def preprocess(age,sex,cp,trestbps,restecg,chol,fbs,thalach,exang,oldpeak,slope,
     
 
        
+    # front end elements of the web page 
+html_temp = """ 
+    <div style =";padding:13px"> 
+    <h1 style ="color:white;text-align:center;">Heart Disease Prediction</h1> 
+    </div> 
+    """
+      
+
+st.markdown(html_temp, unsafe_allow_html = True) 
 
 # following lines create boxes in which user can enter data required to make prediction
 age=st.selectbox ("Age",range(1,121,1))
@@ -90,7 +101,6 @@ thal=st.selectbox('Thalium Stress Result',range(1,8,1))
 pred=preprocess(age,sex,cp,trestbps,restecg,chol,fbs,thalach,exang,oldpeak,slope,ca,thal)
 
 
-
 if st.button("Predict"):    
   if pred[0] == 0:
     st.error('Warning! You have high risk of getting a heart attack!')
@@ -101,6 +111,11 @@ if st.button("Predict"):
    
 
 
+
+st.sidebar.subheader("About App")
+
+st.sidebar.info("This web app is helps you to find out whether you are at a risk of developing a heart disease.")
+st.sidebar.info("Enter the required fields and click on the 'Predict' button to check whether you have a healthy heart")
 
 
 
